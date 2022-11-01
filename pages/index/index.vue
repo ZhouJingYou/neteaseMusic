@@ -1,40 +1,42 @@
 <template>
 	<view class="index">
 		<navbar title="网易云音乐"></navbar>
-		<view class="loginbar">
-			<view class="loginbar-l">
-				<image src="../../static/user.png"></image>
-				<text>未登录</text>
-			</view>
-			<view class="loginbar-r">立即登录</view>
-		</view>
-		<view class="searchbar">
-			<view class="iconfont icon-Magnifier"></view>
-			<text>搜索歌曲</text>
-		</view>
-		<view class="toplist">
-			<view class="toplist-item" v-for="(item,index) in topList" :key="index">
-				<view class="toplist-item-l">
-					<image :src="item.coverImgUrl" mode="aspectFill"></image>
-					{{item.name}}
-					<text class="updateFrequency">{{item.updateFrequency}}</text>
+		<view class="container">
+			<view class="loginbar">
+				<view class="loginbar-l">
+					<image src="../../static/user.png"></image>
+					<text>未登录</text>
 				</view>
-				<view class="toplist-item-r">
-					<view class="song" v-for="(item2,index) in item.tracks">
-						{{index+1}}.{{item2.first}} - {{item2.second}}
+				<view class="loginbar-r">立即登录</view>
+			</view>
+			<view class="searchbar">
+				<view class="iconfont icon-Magnifier"></view>
+				<text>搜索歌曲</text>
+			</view>
+			<view class="toplist">
+				<view class="toplist-item" @tap="handleToTopDetail(item)" v-for="(item,index) in topList" :key="index">
+					<view class="toplist-item-l">
+						<image :src="item.coverImgUrl" mode="aspectFill"></image>
+						{{item.name}}
+						<text class="updateFrequency">{{item.updateFrequency}}</text>
+					</view>
+					<view class="toplist-item-r">
+						<view class="song" v-for="(item2,index) in item.tracks">
+							{{index+1}}.{{item2.first}} - {{item2.second}}
+						</view>
 					</view>
 				</view>
 			</view>
 		</view>
+
 	</view>
 </template>
 
 <script>
-	import navbar from '../../components/navbar/navbar.vue'
 	export default {
 		data() {
 			return {
-				topList: []
+				topList: [],
 			}
 		},
 		async onLoad() {
@@ -46,12 +48,17 @@
 				this.topList = list.slice(0, 4)
 				console.log(this.topList, 'asdasd');
 			}
-		},
-		components: {
-			navbar
-		},
-		methods: {
 
+
+		},
+		components: {},
+		methods: {
+			handleToTopDetail(params) {
+				uni.navigateTo({
+					url: `/pages/list/list?id=${params.id}`
+				})
+				console.log('tap');
+			}
 		}
 	}
 </script>
@@ -62,7 +69,6 @@
 		display: flex;
 		flex-direction: column;
 		padding: 0 30rpx;
-		height: calc(100vh - '150rpx');
 
 		.loginbar {
 			display: flex;
@@ -115,10 +121,10 @@
 
 				&-l {
 					position: relative;
-					width: 230rpx;
-					height: 230rpx;
+					width: 220rpx;
+					height: 220rpx;
 					text-align: center;
-					line-height: 230rpx;
+					line-height: 220rpx;
 					font-size: 50rpx;
 					margin-right: 20rpx;
 					flex-shrink: 0;
@@ -146,8 +152,8 @@
 					display: flex;
 					flex-direction: column;
 					justify-content: space-around;
-					;
 					font-size: 12px;
+					min-width: 0;
 
 					.song {
 						@include text-overflow(100%, 1);

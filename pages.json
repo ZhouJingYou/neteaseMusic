@@ -6,6 +6,13 @@
 				"navigationStyle": "custom"
 				// "navigationBarTitleText": "音乐榜单"
 			}
+		},
+		{
+			"path": "pages/list/list",
+			"style": {
+				"navigationStyle": "custom"
+			}
+
 		}
 	],
 	"globalStyle": {

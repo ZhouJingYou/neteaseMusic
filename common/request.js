@@ -13,6 +13,12 @@ function request(url, data, method) {
 				'content-type': 'application/json;charset=UTF-8',
 			},
 			success: (res) => {
+				if (res.data.code !== 200) {
+					uni.showToast({
+						title: res.data.msg,
+						icon: 'none',
+					})
+				}
 				resolve(res.data)
 			},
 			fail: (res) => {
