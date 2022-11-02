@@ -1,3 +1,6 @@
 .container {
 		height: calc(100vh - 150rpx);
+		width: 100%;
+		overflow: hidden;
 } 
+.container scroll-view{ height:100%;}

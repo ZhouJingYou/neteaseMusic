@@ -1,21 +1,19 @@
 <template>
 	<view class="list">
-		<view class="fixedbg" :style="`background-image:url(${topDetail.coverImgUrl})`">
-		</view>
+		<view class="fixedbg" :style="`background-image:url(${topDetail.coverImgUrl})`"></view>
 		<navbar title="歌单" color="#fff"></navbar>
-
 		<view class="container">
 			<scroll-view scroll-y="true">
 				<view class="list-top">
 					<view class="list-top-l">
-						<image :src="topDetail.coverImgUrl" mode=""></image>
+						<image :src="topDetail.coverImgUrl"></image>
 						<text class="iconfont icon-yousanjiao">{{topDetail.playCount}}</text>
 					</view>
 					<view class="list-top-r">
 						<text class="title">{{topDetail.name}}</text>
 						<view class="icon">
-							<image src="../../static/icon.jpg" mode=""></image>
-							<text>网易云音乐</text>
+							<image :src="topDetail.creator.avatarUrl"></image>
+							<text>{{topDetail.creator.nickname}}</text>
 						</view>
 						<text>{{topDetail.description}}</text>
 					</view>
@@ -31,8 +29,8 @@
 							<text>{{index+1}}</text>
 						</view>
 						<view class="list-cont-item-r">
-							<text>{{item.name}}</text>
-							<view>
+							<view>{{item.name}}</view>
+							<view class="song">
 								<image src="../../static/sq.png" v-if="item.sq"></image>
 								<text>{{item.ar[0].name}} - {{item.name}}</text>
 							</view>
@@ -52,7 +50,9 @@
 	export default {
 		data() {
 			return {
-				topDetail: {}
+				topDetail: {
+					creator: {}
+				}
 			}
 		},
 		async onLoad(options) {
@@ -62,11 +62,10 @@
 			} = await this.$api.topDetail({
 				id: options.id
 			})
-			console.log(code, '1111111');
-			console.log(playlist, '2222222');
 			if (code === 200) {
 				this.topDetail = playlist
 			}
+			console.log("this.topDetail: ", this.topDetail);
 		},
 		methods: {
 
@@ -126,7 +125,7 @@
 					display: flex;
 					align-items: center;
 
-					margin: 30rpx 0;
+					margin: 20rpx 0;
 
 					image {
 						width: 55rpx;
@@ -143,6 +142,8 @@
 
 			background-color: #fff;
 			border-radius: 50rpx;
+			overflow: hidden;
+			;
 
 			&-header {
 				display: flex;
@@ -179,18 +180,26 @@
 					text-align: center;
 					color: #979797;
 					font-size: 28rpx;
+					flex-shrink: 0;
 				}
 
 				&-r {
 					flex: 1;
 					margin-right: 80rpx;
+					min-width: 0;
 
-					text:nth-child(1) {
+					view:nth-child(1) {
 						font-size: 30rpx;
 						@include text-overflow(100%, 1);
 					}
 
-					text:nth-child(2) {
+					/* text:nth-child(2) {
+						font-size: 24rpx;
+						color: #a2a2a2;
+						@include text-overflow(100%, 1);
+					} */
+
+					.song {
 						font-size: 24rpx;
 						color: #a2a2a2;
 						@include text-overflow(100%, 1);

@@ -10,8 +10,7 @@
 			</view>
 			{{title}}
 		</view>
-		<view class="clearfix">
-		</view>
+
 	</view>
 </template>
 
@@ -54,18 +53,12 @@
 	}
 
 	.navbar-wrap {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
+		position: relative;
 		margin: 0 30rpx;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 150rpx;
+		text-align: center;
+		line-height: 150rpx;
 		font-size: 36rpx;
 		color: #000;
-		z-index: 1;
 
 		.navbar {
 			position: absolute;
@@ -78,6 +71,7 @@
 			background: rgba(0, 0, 0, .3);
 			color: #fff;
 			padding: 8rpx 30rpx;
+			height: 50rpx;
 
 			.divider {
 				margin: 0 30rpx;
