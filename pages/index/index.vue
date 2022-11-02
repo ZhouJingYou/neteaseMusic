@@ -43,7 +43,7 @@
 			let {
 				code,
 				list
-			} = await this.$api.topList()
+			} = await this.$api.topListDetail()
 			if (code === 200) {
 				this.topList = list.slice(0, 4)
 				console.log(this.topList, 'asdasd');

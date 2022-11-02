@@ -59,6 +59,7 @@
 		line-height: 150rpx;
 		font-size: 36rpx;
 		color: #000;
+		height: 150rpx;
 
 		.navbar {
 			position: absolute;

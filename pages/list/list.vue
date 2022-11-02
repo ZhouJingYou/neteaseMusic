@@ -1,30 +1,31 @@
 <template>
 	<view class="list">
-		<view class="fixedbg" :style="`background-image:url(${topDetail.coverImgUrl})`"></view>
+		<fixedbg :imgUrl="playlist.coverImgUrl"></fixedbg>
 		<navbar title="歌单" color="#fff"></navbar>
 		<view class="container">
 			<scroll-view scroll-y="true">
 				<view class="list-top">
 					<view class="list-top-l">
-						<image :src="topDetail.coverImgUrl"></image>
-						<text class="iconfont icon-yousanjiao">{{topDetail.playCount}}</text>
+						<image :src="playlist.coverImgUrl"></image>
+						<text class="iconfont icon-yousanjiao">{{playlist.playCount}}</text>
 					</view>
 					<view class="list-top-r">
-						<text class="title">{{topDetail.name}}</text>
+						<text class="title">{{playlist.name}}</text>
 						<view class="icon">
-							<image :src="topDetail.creator.avatarUrl"></image>
-							<text>{{topDetail.creator.nickname}}</text>
+							<image :src="playlist.creator.avatarUrl"></image>
+							<text>{{playlist.creator.nickname}}</text>
 						</view>
-						<text>{{topDetail.description}}</text>
+						<text>{{playlist.description}}</text>
 					</view>
 				</view>
 				<view class="list-cont">
 					<view class="list-cont-header">
 						<text class="iconfont icon-arrow-"></text>
 						<text>播放全部</text>
-						<text>(共{{topDetail.trackCount}}首)</text>
+						<text>(共{{playlist.trackCount}}首)</text>
 					</view>
-					<view class="list-cont-item" v-for="(item,index) in topDetail.tracks" :key="index">
+					<view class="list-cont-item" @tap="handleToMusic(item)" v-for="(item,index) in playlist.tracks"
+						:key="index">
 						<view class="list-cont-item-l">
 							<text>{{index+1}}</text>
 						</view>
@@ -50,7 +51,7 @@
 	export default {
 		data() {
 			return {
-				topDetail: {
+				playlist: {
 					creator: {}
 				}
 			}
@@ -59,16 +60,20 @@
 			let {
 				code,
 				playlist
-			} = await this.$api.topDetail({
+			} = await this.$api.playlistDetail({
 				id: options.id
 			})
 			if (code === 200) {
-				this.topDetail = playlist
+				this.playlist = playlist
 			}
-			console.log("this.topDetail: ", this.topDetail);
+			console.log("this.playlist: ", this.playlist);
 		},
 		methods: {
-
+			handleToMusic(params) {
+				uni.navigateTo({
+					url: `/pages/music/music?id=${params.id}`
+				})
+			}
 		}
 	}
 </script>
@@ -77,15 +82,7 @@
 	@import "../../common/mixins.scss";
 
 	.list {
-		.fixedbg {
-			width: 100%;
-			height: 100vh;
-			position: fixed;
-			background-position: center 0;
-			filter: blur(10px);
-			transform: scale(1.2);
-			background-size: cover;
-		}
+
 
 		&-top {
 			display: flex;

@@ -12,6 +12,11 @@
 			"style": {
 				"navigationStyle": "custom"
 			}
+		}, {
+			"path": "pages/music/music",
+			"style": {
+				"navigationStyle": "custom"
+			}
 
 		}
 	],
