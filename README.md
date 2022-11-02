@@ -1,1 +1,1 @@
-git网易云音乐(uni-app)
+网易云音乐(uni-app)
